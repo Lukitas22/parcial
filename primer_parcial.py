@@ -1,16 +1,18 @@
 import re 
 import json
 
+
 def leer_archivo(nombre_archivo: str):
     lista_jugadores = []
-    with open(nombre_archivo, "r") as file:
+    with open(nombre_archivo, "r", encoding = "utf-8") as file:
         dict = json.load(file)
         lista_jugadores = dict["jugadores"]
 
     return lista_jugadores
 
-lista_de_jugadores = leer_archivo("Primer Parcial\dt.json")
+lista_de_jugadores = leer_archivo("Primer Parcial\pp_lab1_casas_lucas\dt.json")
 
+#PUNTO 1 PUNTO 1 PUNTO 1 PUNTO 1 PUNTO 1 PUNTO 1 PUNTO 1
 
 def listar_jugadores(lista_jugadores: list):
     """
@@ -28,6 +30,7 @@ def listar_jugadores(lista_jugadores: list):
 
 #listar_jugadores(lista_de_jugadores)
 
+#PUNTO 2 PUNTO 2 PUNTO 2 PUNTO 2 PUNTO 2 PUNTO 2 
 
 def mostrar_estadisticas_jugadores(lista_jugadores: list, indice: str) -> str:
     lista_estadisticas = []
@@ -53,27 +56,81 @@ def mostrar_estadisticas_jugadores(lista_jugadores: list, indice: str) -> str:
     return estadistica
 
 
-print("0. Michael Jordan")
-print("1. Magic Johnson")
-print("2. Larry Bird")
-print("3. Charles Barkley")
-print("4. Scottie Pippen")
-print("5. David Robinson")
-print("6. Patrick Ewing")
-print("7. Karl Malone")
-print("8. John Stockton")
-print("9. Clyde Drexler")
-print("10. Chris Mullin")
-print("11. Christian Laettner")
+
+# print("0. Michael Jordan")
+# print("1. Magic Johnson")
+# print("2. Larry Bird")
+# print("3. Charles Barkley")
+# print("4. Scottie Pippen")
+# print("5. David Robinson")
+# print("6. Patrick Ewing")
+# print("7. Karl Malone")
+# print("8. John Stockton")
+# print("9. Clyde Drexler")
+# print("10. Chris Mullin")
+# print("11. Christian Laettner")
 
 
-indice_txt = input("Ingrese el indice del jugador a ver sus estadisticas: ")
-indice_int = int(indice_txt)
+# indice_txt = input("Ingrese el indice del jugador a ver sus estadisticas: ")
+# indice_int = int(indice_txt)
 
-estadisticas = mostrar_estadisticas_jugadores(lista_de_jugadores, indice_int)
+# estadisticas = mostrar_estadisticas_jugadores(lista_de_jugadores, indice_int)
 
-def crear_archivo_csv_estadisticas():
+#PUNTO 3 PUNTO 3 PUNTO 3 PUNTO 3 PUNTO 3 PUNTO 3 PUNTO 3 PUNTO 3
+
+def crear_archivo_csv_estadisticas(estadisticas_jugadores: str):
     pass
+
+
+#PUNTO 4 PUNTO 4 PUNTO 4 PUNTO 4 PUNTO 4 PUNTO 4 PUNTO 4 PUNTO 4 PUNTO 4
+
+
+def mostrar_logros_jugador(lista_jugadores: list, nombre_jugador: str):
+    patron = rf"{nombre_jugador.capitalize()}"
+
+    if (nombre_jugador == " "):
+        mensaje = "ERROR. Ingrese algun nombre."
+        return mensaje
+
+    for jugador in lista_jugadores:
+        resultado = re.search(patron, jugador["nombre"])
+        if (resultado):
+            print(jugador["nombre"])
+            logros = jugador["logros"]
+            separador = "\n"
+            logros = separador.join(logros)
+            return logros
+
+
+nombre_jugador = input("Ingrese el nombre del jugador: ")
+
+logros = mostrar_logros_jugador(lista_de_jugadores, nombre_jugador)
+print(logros)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
