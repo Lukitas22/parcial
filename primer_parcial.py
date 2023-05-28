@@ -33,7 +33,7 @@ def quick_sort(lista_original: list, key: str, flag_orden: bool) -> list:
 
     return lista_iz
 
-#PUNTO 1 PUNTO 1 PUNTO 1 PUNTO 1 PUNTO 1 PUNTO 1 PUNTO 1
+#PUNTO 1 PUNTO 1 PUNTO 1 PUNTO 1 PUNTO 1 PUNTO 1 PUNTO 1 PUNTO 1 PUNTO 1 PUNTO 1 PUNTO 1 PUNTO 1 PUNTO 1 PUNTO 1 PUNTO 1 PUNTO 1 PUNTO 1 PUNTO 1 PUNTO 1 PUNTO 1 PUNTO 1
 
 def listar_jugadores(lista_jugadores: list):
     """
@@ -51,7 +51,7 @@ def listar_jugadores(lista_jugadores: list):
 
 #listar_jugadores(lista_de_jugadores)
 
-#PUNTO 2 PUNTO 2 PUNTO 2 PUNTO 2 PUNTO 2 PUNTO 2 
+#PUNTO 2 PUNTO 2 PUNTO 2 PUNTO 2 PUNTO 2 PUNTO 2 PUNTO 2 PUNTO 2 PUNTO 2 PUNTO 2 PUNTO 2 PUNTO 2 PUNTO 2 PUNTO 2 PUNTO 2 PUNTO 2 PUNTO 2 PUNTO 2 PUNTO 2 PUNTO 2 PUNTO 2 PUNTO 2 PUNTO 2 PUNTO 2 
 
 def mostrar_estadisticas_jugadores(lista_jugadores: list, indice: str) -> str:
     lista_estadisticas = []
@@ -97,13 +97,13 @@ def mostrar_estadisticas_jugadores(lista_jugadores: list, indice: str) -> str:
 
 # estadisticas = mostrar_estadisticas_jugadores(lista_de_jugadores, indice_int)
 
-#PUNTO 3 PUNTO 3 PUNTO 3 PUNTO 3 PUNTO 3 PUNTO 3 PUNTO 3 PUNTO 3
+#PUNTO 3 PUNTO 3 PUNTO 3 PUNTO 3 PUNTO 3 PUNTO 3 PUNTO 3 PUNTO 3 PUNTO 3 PUNTO 3 PUNTO 3 PUNTO 3 PUNTO 3 PUNTO 3 PUNTO 3 PUNTO 3 PUNTO 3 PUNTO 3 PUNTO 3 PUNTO 3 PUNTO 3 PUNTO 3 PUNTO 3 PUNTO 3
 
 def crear_archivo_csv_estadisticas(estadisticas_jugadores: str):
     pass
 
 
-#PUNTO 4 PUNTO 4 PUNTO 4 PUNTO 4 PUNTO 4 PUNTO 4 PUNTO 4 PUNTO 4 PUNTO 4
+#PUNTO 4 PUNTO 4 PUNTO 4 PUNTO 4 PUNTO 4 PUNTO 4 PUNTO 4 PUNTO 4 PUNTO 4 PUNTO 4 PUNTO 4 PUNTO 4 PUNTO 4 PUNTO 4 PUNTO 4 PUNTO 4 PUNTO 4 PUNTO 4 PUNTO 4 PUNTO 4 PUNTO 4 PUNTO 4 PUNTO 4 PUNTO 4 PUNTO 4 PUNTO 4 PUNTO 4
 
 
 def mostrar_logros_jugador(lista_jugadores: list, nombre_jugador: str) -> str:
@@ -130,7 +130,7 @@ def mostrar_logros_jugador(lista_jugadores: list, nombre_jugador: str) -> str:
 
 
 
-#PUNTO 5 PUNTO 5 PUNTO 5 PUNTO 5 PUNTO 5 PUNTO 5 PUNTO 5 PUNTO 5 PUNTO 5 
+#PUNTO 5 PUNTO 5 PUNTO 5 PUNTO 5 PUNTO 5 PUNTO 5 PUNTO 5 PUNTO 5 PUNTO 5 PUNTO 5 PUNTO 5 PUNTO 5 PUNTO 5 PUNTO 5 PUNTO 5 PUNTO 5 PUNTO 5 PUNTO 5 
 
 def calcular_promedio_puntos_partido(lista_jugadores: list) -> float:
     acumulador_puntos = 0
@@ -153,7 +153,7 @@ def calcular_promedio_puntos_partido(lista_jugadores: list) -> float:
 
 #promedio = calcular_promedio_puntos_partido(lista_de_jugadores)
 
-#PUNTO 6 PUNTO 6 PUNTO 6 PUNTO 6 PUNTO 6 PUNTO 6 
+#PUNTO 6 PUNTO 6 PUNTO 6 PUNTO 6 PUNTO 6 PUNTO 6 PUNTO 6 PUNTO 6 PUNTO 6 PUNTO 6 PUNTO 6 PUNTO 6 PUNTO 6 PUNTO 6 PUNTO 6 PUNTO 6 PUNTO 6 PUNTO 6 
 
 
 def mostrar_miembro_salon_fama(lista_jugadores: list, nombre_jugador: str) -> str:
@@ -179,18 +179,29 @@ def mostrar_miembro_salon_fama(lista_jugadores: list, nombre_jugador: str) -> st
 # print(miembro)
 
 
-#PUNTO 7 PUNTO 7 PUNTO 7 PUNTO 7 PUNTO 7 PUNTO 7 PUNTO 7 PUNTO 7 PUNTO 7 PUNTO 7 
+#PUNTO 7 PUNTO 7 PUNTO 7 PUNTO 7 PUNTO 7 PUNTO 7 PUNTO 7 PUNTO 7 PUNTO 7 PUNTO 7 PUNTO 7 PUNTO 7 PUNTO 7 PUNTO 7 PUNTO 7 PUNTO 7 PUNTO 7 PUNTO 7 PUNTO 7 PUNTO 7
 
 def calcular_y_mostrar_mayor_segun_key(lista_jugadores: list, key: str) -> str:
     mayor_segun_key = 0
+    mayor_logros = 0
 
-    for jugador in lista_jugadores:
-        if (jugador["estadisticas"][key] > mayor_segun_key):
-            mayor_segun_key = jugador["estadisticas"][key] 
-            jugador_mayor_segun_key = jugador
+    if (key != "logros"):
+        for jugador in lista_jugadores:
+            if (jugador["estadisticas"][key] > mayor_segun_key):
+                mayor_segun_key = jugador["estadisticas"][key] 
+                jugador_mayor_segun_key = jugador
 
-    mensaje = "El jugador con mayor cantidad de {0} es: {1}, con un total de: {2}".format(key.replace("_", " "), jugador_mayor_segun_key["nombre"],
+        mensaje = "El jugador con mayor cantidad de {0} es: {1}, con un total de: {2}".format(key.replace("_", " "), jugador_mayor_segun_key["nombre"],
                                                                               jugador_mayor_segun_key["estadisticas"][key])
+
+    else:
+        for jugador in lista_jugadores:
+            if (len(jugador["logros"]) > mayor_logros):
+                mayor_logros = len(jugador["logros"])
+                jugador_mayor_logros = jugador
+
+        mensaje = "El jugador con mayor cantidad de logros es: {0}, con un total de: {1}".format(jugador_mayor_logros["nombre"],
+                                                                              len(jugador_mayor_logros["logros"]))
 
     return mensaje
 
@@ -199,32 +210,143 @@ def calcular_y_mostrar_mayor_segun_key(lista_jugadores: list, key: str) -> str:
 # print(jugador_mayor_rebotes)
 
 
-#PUNTO 8 PUNTO 8 PUNTO 8 PUNTO 8 PUNTO 8 PUNTO 8 PUNTO 8 PUNTO 8 PUNTO 8 
+#PUNTO 8 PUNTO 8 PUNTO 8 PUNTO 8 PUNTO 8 PUNTO 8 PUNTO 8 PUNTO 8 PUNTO 8 PUNTO 8 PUNTO 8 PUNTO 8 PUNTO 8 PUNTO 8 PUNTO 8 PUNTO 8 PUNTO 8 PUNTO 8 
 
 # jugador_mayor_tiros_campo = calcular_y_mostrar_mayor_segun_key(lista_de_jugadores, "porcentaje_tiros_de_campo")
 # print(jugador_mayor_tiros_campo)
 
 
-#PUNTO 9 PUNTO 9 PUNTO 9 PUNTO 9 PUNTO 9 PUNTO 9 PUNTO 9 PUNTO 9PUNTO 9
+#PUNTO 9 PUNTO 9 PUNTO 9 PUNTO 9 PUNTO 9 PUNTO 9 PUNTO 9 PUNTO 9 PUNTO 9 PUNTO 9 PUNTO 9 PUNTO 9 PUNTO 9 PUNTO 9 PUNTO 9 PUNTO 9 PUNTO 9 PUNTO 9
 
-jugador_mayor_asistencias = calcular_y_mostrar_mayor_segun_key(lista_de_jugadores, "asistencias_totales")
-print(jugador_mayor_asistencias)
-
-
+# jugador_mayor_asistencias = calcular_y_mostrar_mayor_segun_key(lista_de_jugadores, "asistencias_totales")
+# print(jugador_mayor_asistencias)
 
 
+#PUNTO 10 PUNTO 10 PUNTO 10 PUNTO 10 PUNTO 10 PUNTO 10 PUNTO 10 PUNTO 10 PUNTO 10 PUNTO 10 PUNTO 10 PUNTO 10 PUNTO 10 PUNTO 10 PUNTO 10 PUNTO 10
+
+def calcular_mayor_segun_key(lista_jugadores: list, numero_ingresado: float, key: str) -> str:
+    lista_jugadores_mayores = []
+    lista_textos = []
+    jugadores_mayores = "No hay ningun jugador mayor al numero ingresado, ingrese un numero mas bajo."
+
+    if (type(numero_ingresado) != float):
+        return "ERROR. No se ingreso un numero."
+
+    if (len(lista_jugadores) == 0):
+        return "ERROR. Lista vacia."
+
+    for jugador in lista_jugadores:
+        if (jugador["estadisticas"][key] > numero_ingresado):
+            lista_jugadores_mayores.append(jugador)
+    
+    for jugador in lista_jugadores_mayores:
+        texto = "El jugador: {0} tiene un total de {1} de {2}\n".format(jugador["nombre"],
+                                                                       jugador["estadisticas"][key], key.replace("_"," "))
+        lista_textos.append(texto)
+        separador = ""
+        jugadores_mayores = separador.join(lista_textos)
+    
+    print("El/Los jugadores que tienen mayor cantidad de {0} que el numero ingresado son: ".format(key.replace("_"," ")))
+    return jugadores_mayores
+
+
+# numero_txt = input("Ingrese un numero: ")
+# numero_float = float(numero_txt)
+
+# mayor_promedio_puntos_partido = calcular_mayor_segun_key(lista_de_jugadores, numero_float, "promedio_puntos_por_partido")
+# print(mayor_promedio_puntos_partido)
+
+
+#PUNTO 11 PUNTO 11 PUNTO 11 PUNTO 11 PUNTO 11 PUNTO 11 PUNTO 11 PUNTO 11 PUNTO 11 PUNTO 11 PUNTO 11 PUNTO 11 PUNTO 11 PUNTO 11 PUNTO 11 PUNTO 11 PUNTO 11 PUNTO 11 
+
+# numero_txt = input("Ingrese un numero: ")
+# numero_float = float(numero_txt)
+
+# mayor_promedio_rebotes_partido = calcular_mayor_segun_key(lista_de_jugadores, numero_float, "promedio_rebotes_por_partido")
+# print(mayor_promedio_rebotes_partido)
+
+
+#PUNTO 12 PUNTO 12 PUNTO 12 PUNTO 12 PUNTO 12 PUNTO 12 PUNTO 12 PUNTO 12 PUNTO 12 PUNTO 12 PUNTO 12 PUNTO 12 PUNTO 12 PUNTO 12 PUNTO 12 PUNTO 12 PUNTO 12 PUNTO 12
+
+# numero_txt = input("Ingrese un numero: ")
+# numero_float = float(numero_txt)
+
+# mayor_promedio_asistencias_partido = calcular_mayor_segun_key(lista_de_jugadores, numero_float, "promedio_asistencias_por_partido")
+# print(mayor_promedio_asistencias_partido)
+
+
+#PUNTO 13 PUNTO 13 PUNTO 13 PUNTO 13 PUNTO 13 PUNTO 13 PUNTO 13 PUNTO 13 PUNTO 13 PUNTO 13 PUNTO 13 PUNTO 13 PUNTO 13 PUNTO 13 PUNTO 13 PUNTO 13 PUNTO 13 PUNTO 13
+
+# jugador_mayor_robos = calcular_y_mostrar_mayor_segun_key(lista_de_jugadores, "robos_totales")
+# print(jugador_mayor_robos)
+
+#PUNTO 14 PUNTO 14 PUNTO 14 PUNTO 14 PUNTO 14 PUNTO 14 PUNTO 14 PUNTO 14 PUNTO 14 PUNTO 14 PUNTO 14 PUNTO 14 PUNTO 14 PUNTO 14 PUNTO 14 PUNTO 14 PUNTO 14 PUNTO 14 
+
+# jugador_mayor_bloqueos = calcular_y_mostrar_mayor_segun_key(lista_de_jugadores, "bloqueos_totales")
+# print(jugador_mayor_bloqueos)
+
+
+#PUNTO 15 PUNTO 15 PUNTO 15 PUNTO 15 PUNTO 15 PUNTO 15 PUNTO 15 PUNTO 15 PUNTO 15 PUNTO 15 PUNTO 15 PUNTO 15 PUNTO 15 PUNTO 15 PUNTO 15 PUNTO 15 PUNTO 15 PUNTO 15 
+
+# numero_txt = input("Ingrese un numero: ")
+# numero_float = float(numero_txt)
+
+# mayor_promedio_tiros_libres = calcular_mayor_segun_key(lista_de_jugadores, numero_float, "porcentaje_tiros_libres")
+# print(mayor_promedio_tiros_libres)
+
+
+#PUNTO 16 PUNTO 16 PUNTO 16 PUNTO 16 PUNTO 16 PUNTO 16 PUNTO 16 PUNTO 16 PUNTO 16 PUNTO 16 PUNTO 16 PUNTO 16 PUNTO 16 PUNTO 16 PUNTO 16 PUNTO 16 PUNTO 16 PUNTO 16 
+
+def calcular_promedio_puntos_partidos_sin_menor(lista_jugadores: list) -> float:
+    menor = 999999
+    acumulador = 0
+    contador = 0
+
+    for jugador in lista_jugadores:
+        if (jugador["estadisticas"]["promedio_puntos_por_partido"] < menor):
+            menor = jugador["estadisticas"]["promedio_puntos_por_partido"]
+            jugador_menor_promedio = jugador
+    
+    for jugador in lista_jugadores:
+        if (jugador == jugador_menor_promedio):
+            pass
+        else:
+            acumulador += jugador["estadisticas"]["promedio_puntos_por_partido"]
+            contador +=1
+    
+    promedio = acumulador / contador
+
+    return promedio
+
+
+# promedio_sin_menor = calcular_promedio_puntos_partidos_sin_menor(lista_de_jugadores)
+# print("El promedio sin el jugador con la menor cantidad es:", promedio_sin_menor)
+
+
+#PUNTO 17 PUNTO 17 PUNTO 17 PUNTO 17 PUNTO 17 PUNTO 17 PUNTO 17 PUNTO 17 PUNTO 17 PUNTO 17 PUNTO 17 PUNTO 17 PUNTO 17 PUNTO 17 PUNTO 17 PUNTO 17 PUNTO 17 PUNTO 17 PUNTO 17 PUNTO 17 
+
+# jugador_mayor_logros = calcular_y_mostrar_mayor_segun_key(lista_de_jugadores, "logros")
+# print(jugador_mayor_logros)
+
+
+#PUNTO 18 PUNTO 18 PUNTO 18 PUNTO 18 PUNTO 18 PUNTO 18 PUNTO 18 PUNTO 18 PUNTO 18 PUNTO 18 PUNTO 18 PUNTO 18 PUNTO 18 PUNTO 18 PUNTO 18 PUNTO 18 PUNTO 18 PUNTO 18 PUNTO 18 PUNTO 18
+
+# numero_txt = input("Ingrese un numero: ")
+# numero_float = float(numero_txt)
+
+# mayor_promedio_tiros_triples = calcular_mayor_segun_key(lista_de_jugadores, numero_float, "porcentaje_tiros_triples")
+# print(mayor_promedio_tiros_triples)
+
+
+#PUNTO 19 PUNTO 19 PUNTO 19 PUNTO 19 PUNTO 19 PUNTO 19 PUNTO 19 PUNTO 19 PUNTO 19 PUNTO 19 PUNTO 19 PUNTO 19 PUNTO 19 PUNTO 19 PUNTO 19 PUNTO 19 PUNTO 19 PUNTO 19 PUNTO 19 PUNTO 19
+
+
+# jugador_mayor_temporadas = calcular_y_mostrar_mayor_segun_key(lista_de_jugadores, "temporadas")
+# print(jugador_mayor_temporadas)
 
 
 
-
-
-
-
-
-
-
-
-
+#PUNTO 20 PUNTO 20 PUNTO 20 PUNTO 20 PUNTO 20 PUNTO 20 PUNTO 20 PUNTO 20 PUNTO 20 PUNTO 20 PUNTO 20 PUNTO 20 PUNTO 20 PUNTO 20 PUNTO 20 PUNTO 20 PUNTO 20 PUNTO 20 PUNTO 20 PUNTO 20 
 
 
 
