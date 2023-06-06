@@ -96,16 +96,15 @@ def listar_jugadores(lista_jugadores: list):
         print(datos_jugadores)
 
 
-def mostrar_estadisticas_jugadores(lista_jugadores: list, indice: str) -> str:
+def mostrar_estadisticas_jugadores(lista_jugadores: list, indice: str) -> dict:
     """
     -Muestra las estadisticas del jugador ingresado.
 
     -Recibe una lista de diccionarios con jugadores de basquet,
         y el indice del jugador que se desea ver las estadisticas.
 
-    -Devuelve un string con todas sus estadisticas.
+    -Devuelve el diccionario del jugador ingresado por indice.
     """
-    lista_estadisticas = []
     flag_indice_correcto = False
 
     if (len(lista_jugadores) == 0):
@@ -114,32 +113,43 @@ def mostrar_estadisticas_jugadores(lista_jugadores: list, indice: str) -> str:
     if (indice < len(lista_jugadores)):
         flag_indice_correcto = True
         estadisticas = lista_jugadores[indice]["estadisticas"]
-        nombre_jugador = lista_jugadores[indice]["nombre"]
-        posicion_jugador = lista_jugadores[indice]["posicion"]
-        nombre_y_posicion = "Nombre: {0}, Posicion: {1}".format(nombre_jugador, posicion_jugador)
-        print(nombre_y_posicion)
-        lista_estadisticas.append(nombre_y_posicion)
-
+        nombre = lista_jugadores[indice]["nombre"]
+        print("Nombre: {0}".format(nombre))
+        
         for key, value in estadisticas.items():
             key = key.replace("_", " ")
             estadisticas_individuales = "{0}: {1}".format(key, value)
             print(estadisticas_individuales)
-            lista_estadisticas.append(estadisticas_individuales)
+           
     else:
         print("ERROR. EL indice elegido no existe.")
     
-
     if (flag_indice_correcto == True):
-        for estadistica in lista_estadisticas:
-            separador = ", "
-            estadistica = separador.join(lista_estadisticas)
-            
-            return estadistica
+        dict_jugador = lista_jugadores[indice]
+
+        return dict_jugador
 
 
-def crear_archivo_csv_estadisticas(estadisticas_jugadores: str):
+def crear_archivo_csv_estadisticas(dict_jugador: dict):
+    lista_keys = ["nombre", "posicion"]
+    lista_values = []
+
+    nombre = dict_jugador["nombre"]
+    posicion = dict_jugador["posicion"]
+    jugador_estadisticas = dict_jugador["estadisticas"]
+    
+    for key, value in jugador_estadisticas.items():
+        lista_keys.append(key)
+        lista_values.append(str(value))
+
+    separador = ","
+    keys = separador.join(lista_keys)
+    values = separador.join(lista_values)
+
+    datos_a_guardar = "{0}\n{1},{2},{3}".format(keys, nombre, posicion, values)
+
     with open("Estadisticas.csv", "w") as file:
-        file.write(estadisticas_jugadores)
+        file.write(datos_a_guardar)
 
 
 def mostrar_logros_jugador(lista_jugadores: list, nombre_jugador: str) -> str:
@@ -389,11 +399,11 @@ def calcular_ranking_jugadores(lista_jugadores: list):
 
 
 def crear_csv_ranking(lista_estadisticas_jugadores):
-    lista_keys = ["nombre", "puntos_totales", "rebotes_totales", "robos_totales"]
+    lista_keys = ["nombre", "puntos totales", "rebotes totales", "robos totales"]
     lista_filas = []
 
     for jugador in lista_estadisticas_jugadores:
-            values = [(jugador["nombre"]),
+            values = [jugador["nombre"],
                        str(jugador["estadisticas"]["puntos_totales"]),
                        str(jugador["estadisticas"]["rebotes_totales"]),
                        str(jugador["estadisticas"]["robos_totales"])]
@@ -403,13 +413,13 @@ def crear_csv_ranking(lista_estadisticas_jugadores):
             lista_filas.append(fila)
 
     separador = ","
-    key = separador.join(lista_keys)
-    datos = "{0}\n{1}".format(key.replace("_"," "), "\n".join(lista_filas))
+    keys = separador.join(lista_keys)
+    datos_a_guardar = "{0}\n{1}".format(keys, "\n".join(lista_filas))
 
-    with open("ranking.csv", 'w+') as archivo:
-        resultado = archivo.write(datos)
+    with open("ranking.csv", 'w+') as file:
+        creado = file.write(datos_a_guardar)
 
-    if (resultado):
+    if (creado):
         print("Se creó el archivo: {0}".format("ranking.csv"))
         return True
 
@@ -518,6 +528,8 @@ def menu_principal(lista_jugadores):
                 pass
                 if (flag):
                     crear_archivo_csv_estadisticas(estadisticas)
+                else:
+                    print("ERROR. primero ingrese la opcion 2")
             case "4":
                 nombre_jugador = input("Ingrese el nombre del jugador: ")
 
