@@ -131,6 +131,11 @@ def mostrar_estadisticas_jugadores(lista_jugadores: list, indice: str) -> dict:
 
 
 def crear_archivo_csv_estadisticas(dict_jugador: dict):
+    """
+    -Crea el archivo CSV del jugador ingresado en la opcion 2
+
+    -Recibe un diccionario de un jugador
+    """
     lista_keys = ["nombre", "posicion"]
     lista_values = []
 
@@ -377,7 +382,14 @@ def calcular_y_ordenar_mayor_ingreso_tiros_campo(lista_jugadores: list, numero_i
     return jugadores_mayores
 
 
-def calcular_ranking_jugadores(lista_jugadores: list):
+def calcular_ranking_jugadores(lista_jugadores: list) -> list:
+    """
+    -Calcula la posicion de cada jugador segun una estadistica.
+
+    -Recibe una lista de diccionarios de jugadores de basquet.
+
+    -Devuelve una lista modificada con los ranking de los jugadores ordenados segun una estadistica.
+    """
     lista_estadisticas = ["rebotes_totales", "asistencias_totales", "robos_totales", "puntos_totales"]
 
     for estadistica in lista_estadisticas:
@@ -398,7 +410,14 @@ def calcular_ranking_jugadores(lista_jugadores: list):
     return lista_estadisticas_jugadores
 
 
-def crear_csv_ranking(lista_estadisticas_jugadores):
+def crear_csv_ranking(lista_estadisticas_jugadores: list) -> bool:
+    """
+    -Crea el archivo CSV del ranking de los jugadores segun una estadistica.
+
+    -Recibe una lista modificada con los rankings y ordenada.
+
+    -Devuelve True en caso de que se haya podido crear el archivo y False en caso contrario.
+    """
     lista_keys = ["nombre", "puntos totales", "rebotes totales", "robos totales"]
     lista_filas = []
 
@@ -428,6 +447,13 @@ def crear_csv_ranking(lista_estadisticas_jugadores):
 
 
 def imprimir_ranking_en_tabla(lista_jugadores: list):
+    """
+    -Imprime la tabla del ranking.
+
+    -Recibe la lista modificada con los rankings.
+
+    -Devuelve impreso por pantalla la tabla.
+    """
     print("_____________________________________________________________________________________")
     print("        Jugador        |    Puntos    |    Rebotes    |   Asistencias   |   Robos   |")
     print("¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯")
@@ -441,7 +467,7 @@ def imprimir_ranking_en_tabla(lista_jugadores: list):
         print("-------------------------------------------------------------------------------------")
 
 
-#EXTRA 1 EXTRA 1 EXTRA 1 EXTRA 1 EXTRA 1EXTRA 1 EXTRA 1 EXTRA 1 EXTRA 1 EXTRA 1
+#EXTRA 1 EXTRA 1 EXTRA 1 EXTRA 1 EXTRA 1 EXTRA 1 EXTRA 1 EXTRA 1 EXTRA 1 EXTRA 1
 
 def calcular_jugadores_posicion(lista_jugadores: list):
     dict_contador = {}
@@ -459,6 +485,9 @@ def calcular_jugadores_posicion(lista_jugadores: list):
 
 
 #calcular_jugadores_posicion(lista_de_jugadores)
+
+
+#EXTRA 2 EXTRA 2 EXTRA 2 EXTRA 2 EXTRA 2 EXTRA 2 EXTRA 2 EXTRA 2 EXTRA 2 EXTRA 2
 
 def ordenar_cantidad_all_stars(lista_jugadores: list):
     patron = r"All-Star"
