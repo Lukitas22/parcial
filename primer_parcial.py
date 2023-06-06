@@ -130,11 +130,13 @@ def mostrar_estadisticas_jugadores(lista_jugadores: list, indice: str) -> dict:
         return dict_jugador
 
 
-def crear_archivo_csv_estadisticas(dict_jugador: dict):
+def crear_archivo_csv_estadisticas(dict_jugador: dict) -> bool:
     """
-    -Crea el archivo CSV del jugador ingresado en la opcion 2
+    -Crea el archivo CSV del jugador ingresado en la opcion 2.
 
-    -Recibe un diccionario de un jugador
+    -Recibe un diccionario de un jugador.
+
+    -Devuelve True en caso de que se haya podido crear el archivo y False en caso contrario.
     """
     lista_keys = ["nombre", "posicion"]
     lista_values = []
@@ -151,11 +153,18 @@ def crear_archivo_csv_estadisticas(dict_jugador: dict):
     keys = separador.join(lista_keys)
     values = separador.join(lista_values)
 
-    datos_a_guardar = "{0}\n{1},{2},{3}".format(keys, nombre, posicion, values)
+    datos_a_guardar = "{0}\n{1},{2},{3}".format(keys.replace("_", " "), nombre, posicion, values)
 
     with open("Estadisticas.csv", "w") as file:
-        file.write(datos_a_guardar)
+        creado = file.write(datos_a_guardar)
 
+    if (creado):
+        print("Se creó el archivo: {0}".format("Estadisticas.csv"))
+        return True
+    
+    else:
+        print("Error al crear el archivo: {0}".format("Estadisticas.csv"))
+        return False
 
 def mostrar_logros_jugador(lista_jugadores: list, nombre_jugador: str) -> str:
     """
@@ -386,9 +395,9 @@ def calcular_ranking_jugadores(lista_jugadores: list) -> list:
     """
     -Calcula la posicion de cada jugador segun una estadistica.
 
-    -Recibe una lista de diccionarios de jugadores de basquet.
+    -Recibe una lista de diccionarios con jugadores de basquet.
 
-    -Devuelve una lista modificada con los ranking de los jugadores ordenados segun una estadistica.
+    -Devuelve una lista modificada con los ranking de los jugadores segun las estadistcas.
     """
     lista_estadisticas = ["rebotes_totales", "asistencias_totales", "robos_totales", "puntos_totales"]
 
@@ -414,7 +423,7 @@ def crear_csv_ranking(lista_estadisticas_jugadores: list) -> bool:
     """
     -Crea el archivo CSV del ranking de los jugadores segun una estadistica.
 
-    -Recibe una lista modificada con los rankings y ordenada.
+    -Recibe una lista modificada con los rankings.
 
     -Devuelve True en caso de que se haya podido crear el archivo y False en caso contrario.
     """
@@ -452,7 +461,7 @@ def imprimir_ranking_en_tabla(lista_jugadores: list):
 
     -Recibe la lista modificada con los rankings.
 
-    -Devuelve impreso por pantalla la tabla.
+    -Devuelve la tabla impresa por consola.
     """
     print("_____________________________________________________________________________________")
     print("        Jugador        |    Puntos    |    Rebotes    |   Asistencias   |   Robos   |")
