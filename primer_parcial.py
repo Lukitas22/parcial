@@ -169,7 +169,8 @@ def mostrar_logros_jugador(lista_jugadores: list, nombre_jugador: str) -> str:
             logros = separador.join(logros)
             return logros
         else:
-            return "El nombre del jugador no se ingreso correctamente."
+            mensaje = "El nombre del jugador no se ingreso correctamente."
+            return mensaje
 
 
 def calcular_promedio_puntos_partido(lista_jugadores: list) -> float:
@@ -188,6 +189,7 @@ def calcular_promedio_puntos_partido(lista_jugadores: list) -> float:
         return "ERROR. Lista vacia."
 
     lista_ordenada = quick_sort(lista_jugadores, "nombre", True)
+
     for jugador in lista_ordenada:
         print("Nombre jugador: {0} || Promedio de puntos por partido: {1}".format(jugador["nombre"],
                                                                                   jugador["estadisticas"]["promedio_puntos_por_partido"]))
@@ -281,9 +283,6 @@ def calcular_mayor_ingreso_segun_key(lista_jugadores: list, numero_ingresado: fl
     lista_textos = []
     jugadores_mayores = "No hay ningun jugador mayor al numero ingresado, ingrese un numero mas bajo."
 
-    if (type(numero_ingresado) != float):
-        return "ERROR. No se ingreso un numero."
-
     if (len(lista_jugadores) == 0):
         return "ERROR. Lista vacia."
 
@@ -333,6 +332,7 @@ def calcular_promedio_puntos_partidos_sin_menor(lista_jugadores: list) -> float:
 
     return promedio
 
+
 def calcular_y_ordenar_mayor_ingreso_tiros_campo(lista_jugadores: list, numero_ingresado: float) -> str:
     """
     -Busca los jugadores con mayor promedio de tiros de campo que el numero ingresado.
@@ -345,9 +345,6 @@ def calcular_y_ordenar_mayor_ingreso_tiros_campo(lista_jugadores: list, numero_i
     lista_jugadores_mayores = []
     lista_textos = []
     jugadores_mayores = "No hay ningun jugador mayor al numero ingresado, ingrese un numero mas bajo."
-
-    if (type(numero_ingresado) != float):
-        return "ERROR. No se ingreso un numero."
 
     if (len(lista_jugadores) == 0):
         return "ERROR. Lista vacia."
@@ -366,7 +363,105 @@ def calcular_y_ordenar_mayor_ingreso_tiros_campo(lista_jugadores: list, numero_i
         jugadores_mayores = separador.join(lista_textos)
     
     print("El/Los jugadores que tienen mayor cantidad de Porcentaje de tiros de campo que el numero ingresado son: ")
+    
     return jugadores_mayores
+
+
+def calcular_ranking_jugadores(lista_jugadores: list):
+    lista_estadisticas = ["rebotes_totales", "asistencias_totales", "robos_totales", "puntos_totales"]
+
+    for estadistica in lista_estadisticas:
+        lista_ordenada = quick_sort_estadisticas(lista_jugadores, estadistica , False)
+        lista_estadisticas_jugadores = []
+
+        for indice in range(len(lista_ordenada)):
+            nombre_jugador = lista_ordenada[indice]["nombre"]
+            lista_ordenada[indice]["estadisticas"][estadistica] = indice + 1
+            dict_nombre_estadisticas = {
+                "nombre": nombre_jugador,
+                "estadisticas": lista_ordenada[indice]["estadisticas"]
+            }
+
+            lista_estadisticas_jugadores.append(dict_nombre_estadisticas)
+
+
+    return lista_estadisticas_jugadores
+
+
+def crear_csv_ranking(lista_estadisticas_jugadores):
+    lista_keys = ["nombre", "puntos_totales", "rebotes_totales", "robos_totales"]
+    lista_filas = []
+
+    for jugador in lista_estadisticas_jugadores:
+            values = [(jugador["nombre"]),
+                       str(jugador["estadisticas"]["puntos_totales"]),
+                       str(jugador["estadisticas"]["rebotes_totales"]),
+                       str(jugador["estadisticas"]["robos_totales"])]
+            
+            separador = ","
+            fila = separador.join(values)
+            lista_filas.append(fila)
+
+    separador = ","
+    key = separador.join(lista_keys)
+    datos = "{0}\n{1}".format(key.replace("_"," "), "\n".join(lista_filas))
+
+    with open("ranking.csv", 'w+') as archivo:
+        resultado = archivo.write(datos)
+
+    if (resultado):
+        print("Se creó el archivo: {0}".format("ranking.csv"))
+        return True
+
+    print("Error al crear el archivo: {0}".format("ranking.csv"))
+    return False
+
+
+def imprimir_ranking_en_tabla(lista_jugadores: list):
+    print("_____________________________________________________________________________________")
+    print("        Jugador        |    Puntos    |    Rebotes    |   Asistencias   |   Robos   |")
+    print("¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯")
+
+    for jugador in lista_jugadores:
+        print("  {:^19s}  |  {:^10d}  |  {:^11d}  |  {:^13d}  |  {:^7d}  |".format(
+            jugador["nombre"], jugador["estadisticas"]["puntos_totales"],
+            jugador["estadisticas"]["rebotes_totales"], jugador["estadisticas"]["asistencias_totales"],
+            jugador["estadisticas"]["robos_totales"]
+        ))
+        print("-------------------------------------------------------------------------------------")
+
+
+#EXTRA 1 EXTRA 1 EXTRA 1 EXTRA 1 EXTRA 1EXTRA 1 EXTRA 1 EXTRA 1 EXTRA 1 EXTRA 1
+
+def calcular_jugadores_posicion(lista_jugadores: list):
+    dict_contador = {}
+
+    for jugador in lista_jugadores:
+        if (jugador["posicion"] in dict_contador):
+            dict_contador[jugador["posicion"]].append(jugador["nombre"])
+        else:
+            dict_contador[jugador["posicion"]] = [jugador['nombre']]
+    
+    for key in dict_contador:
+        print(key + ":")
+        for value in dict_contador[key]:
+            print("\t- " + value)
+
+
+#calcular_jugadores_posicion(lista_de_jugadores)
+
+def ordenar_cantidad_all_stars(lista_jugadores: list):
+    patron = r"All-Star"
+    for jugador in lista_jugadores:
+        print(jugador["nombre"])
+        for logro in jugador["logros"]:
+            all_stars = re.search(patron, logro)
+            if (all_stars):
+                print(logro)
+
+
+#ordenar_cantidad_all_stars(lista_de_jugadores)
+
 
 def menu_principal(lista_jugadores):
     flag = False
@@ -521,7 +616,9 @@ def menu_principal(lista_jugadores):
                 else:
                     print("Ingrese un numero.")
             case "23":
-                pass
+                lista_ranking = calcular_ranking_jugadores(lista_de_jugadores)
+                crear_csv_ranking(lista_ranking)
+                imprimir_ranking_en_tabla(lista_ranking)
             case "0":   
                 break
             case _:
